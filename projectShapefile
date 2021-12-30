@@ -1,0 +1,31 @@
+###################################################################################
+# -*- coding: utf-8 -*-
+# Autor: Alicia Pizarro
+###################################################################################
+
+#---Import modules
+import geopandas
+
+#-- Parameters 
+referenceSystem = 4326
+
+def project(file, referenceSystem):
+    """
+    This fuction reproject de inputs shapes in the same SRC.
+    -------------------------------------------------------------------
+    Parameters of function
+    --------------------------------------------------------------------
+    :param inShape: shape in other SRC
+    :param epsg: WGS 84 (4326)
+    --------------------------------------------------------------------
+    :return: shape in the select SRC
+    """
+    data = geopandas.read_file(file + ".shp")
+    data.to_crs(referenceSystem, inplace=True)
+    data.to_file(file + "rep.shp")  # write shp file
+    # Check coordinate reference system (CRS) of both datasets
+    print('-----------------------------------------')
+    print('Shape file Projection: ', data.crs)
+
+# file to reproject. You can reproject multiples shapefiles in the same epsg.
+project('/home/alicia/COMPLUTIG/geoprocess/base/J1_VIIRS_C2_Europe_24h')
