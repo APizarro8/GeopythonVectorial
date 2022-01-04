@@ -1,0 +1,35 @@
+##################################################################################################################
+# -*- coding: utf-8 -*-
+# Author: Alicia Pizarro
+##################################################################################################################
+
+#---Import modules
+import geopandas as gpd
+from reportlab.pdfgen import canvas
+
+# output data
+doc = canvas.Canvas("/pruebadistancia.pdf")
+
+# Input file that we created on the previous pag
+hotspot = gpd.read_file('.shp')
+powerLines = gpd.read_file(".shp")
+
+
+def calcDistance(distance):
+    distances = powerLines.geometry.distance(hotspot.geometry) # Measure distance from release to each point
+    print(distances)
+    
+    print('Mean distance of hotspot: {} Km:'.format(distances.mean()))
+    print('Min distance of hotspot ({} Km:'.format(distances.min()))
+    print('Max distance of hotspot ({} Km:'.format(distances.max()))
+
+    # export the results at csv
+    outdir = ('/')
+    distances.to_csv('%s/hotspotDistance.csv' % outdir)
+
+    # parameters of pdf
+    doc.drawString(100, 750, str(distances))
+    doc.setFont("Helvetica", 20)
+    doc.save()
+
+calcDistance(distance)
