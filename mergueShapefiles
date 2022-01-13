@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+#######################################################################################################
+# Autor: Alicia Pizarro
+# Script00: Execute a script at a specific time every 24 hours.
+#######################################################################################################
+
+# ---Import modules
+import geopandas as gpd
+import pandas as pd
+
+#######################################################################################################
+outputFolder = '.........'
+#######################################################################################################
+shp1 = gpd.GeoDataFrame.from_file('.........')
+shp2 = gpd.GeoDataFrame.from_file('.........')
+shp3 = gpd.GeoDataFrame.from_file('.........')
+########################################################################################################
+
+def mergeData(shps, outputFolder):
+    """
+    This function merge de data between the inputs shapefiles.
+    -------------------------------------------------------------------
+    Parameters of function
+    -------------------------------------------------------------------
+    :param shp1: shape to merge 1.
+    :param shp2: shape to merge 2.
+    :param shp3: shape to merge 3.
+    :param outputFolder: directory of data
+    -------------------------------------------------------------------
+    :return: a one file with all information.
+    """
+
+    # Execute spatial join
+    merguePoints = gpd.GeoDataFrame(pd.concat(shps))
+
+    # save data
+    merguePoints.to_file(outputFolder + 'mergueData.shp')
+
+    print("\n")
+    print("Mergue shapefiles is OK.")
+
+mergueData(shp1, shp2, shp3, outputFolder)
