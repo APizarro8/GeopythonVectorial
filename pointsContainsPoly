@@ -1,0 +1,35 @@
+#################################################################################################
+# -*- coding: utf-8 -*-
+# Autor: Alicia Pizarro
+# Script00:
+#################################################################################################
+
+# --- Import modules
+import geopandas as gp
+import geopandas as gpd
+
+pointData = gpd.read_file('/.... .shp')
+polyData = gpd.read_file('/......shp')
+
+outputFolder = '/....shp'
+
+def containsPoints(pointData, polyData, outputFolder):
+    """
+    This function extract the points contained in a polygon.
+    -------------------------------------------------------------------
+    Parameters of function
+    --------------------------------------------------------------------
+    :param pointData: a point shape data.
+    :param polyData: a poly shape data.
+    :param outputFolder: output folder
+    --------------------------------------------------------------------
+    :return: the points contained in a polygon.
+    """
+    finalData = gpd.GeoDataFrame()
+    values = finalData
+    print(polyData['geometry'].contains(pointData['geometry']))
+    polygons_contains = gp.sjoin(polyData, pointData, op='contains')
+    print(polygons_contains)
+    polygons_contains.to_file(outputFolder)
+
+containsPoints(pointData, polyData, outputFolder)
