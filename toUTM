@@ -1,3 +1,8 @@
+###################################################################################
+# -*- coding: utf-8 -*-
+# Autor: Alicia Pizarro
+###################################################################################
+
 def toUTM(AOI, PL_clip, HS_clip, activeFire, outputFolderRemove, date2, date1):
     """
         This function projects the AOI, assets (e.g. power lines) and Hotspots.
