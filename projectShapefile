@@ -28,4 +28,4 @@ def project(file, referenceSystem):
     print('Shape file Projection: ', data.crs)
 
 # file to reproject. You can reproject multiples shapefiles in the same epsg.
-project('/home/alicia/COMPLUTIG/geoprocess/base/J1_VIIRS_C2_Europe_24h')
+project('/')
