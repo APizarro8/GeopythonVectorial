@@ -1,0 +1,35 @@
+def toUTM(AOI, PL_clip, HS_clip, activeFire, outputFolderRemove, date2, date1):
+    """
+        This function projects the AOI, assets (e.g. power lines) and Hotspots.
+        --------------------------------------------------------------------
+        Input parameters:
+            :param: Assets layer.
+            :param: Assets layer.
+            :param: Assets layer.
+            :param: Assets layer.
+
+        Output of the function:
+            :return: Estimated UTM CRS based on the bounds of the dataset.
+        """
+    AOI_utm = geopandas.read_file("%s%s" % (AOI, ".shp"))
+    crs_UTM = AOI_utm.estimate_utm_crs()
+    AOI_utm.to_crs(crs_UTM, inplace=True)
+    AOI_utm.to_file(outputFolderRemove + 'AOI_clip_utm_from_%s_to_%s.shp' % (date2, date1))
+    print('Shape file Projection: ', AOI_utm.crs)
+
+    PL_clip_utm = geopandas.read_file(PL_clip)
+    PL_clip_utm.to_crs(crs_UTM, inplace=True)
+    PL_clip_utm.to_file(outputFolderRemove + 'PL_clip_utm_from_%s_to_%s.shp' % (date2, date1))
+    print('Shape file Projection: ', PL_clip_utm.crs)
+
+    HS_clip_utm = geopandas.read_file("%s%s" % (HS_clip, ".shp"))
+    HS_clip_utm.to_crs(crs_UTM, inplace=True)
+    HS_clip_utm.to_file(outputFolderRemove + 'HS_clip_utm_from_%s_to_%s.shp' % (date2, date1))
+    print('Shape file Projection: ', HS_clip_utm.crs)
+
+    activeFire_utm = activeFire
+    activeFire_utm.to_crs(crs_UTM, inplace=True)
+    activeFire_utm.to_file(outputFolderRemove + 'activeFire_utm_from_%s_to_%s.shp' % (date2, date1))
+    print('Shape file Projection: ', activeFire_utm.crs)
+
+    return AOI_utm, PL_clip_utm, HS_clip_utm, activeFire_utm
